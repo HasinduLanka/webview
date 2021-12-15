@@ -1,0 +1,18 @@
+name: Build Webview
+on: [push, pull_request]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build and run tests
+        run: ./script/build.bat
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: WebviewBuild
+          path: build
+          if-no-files-found: error
+          retention-days: 90
